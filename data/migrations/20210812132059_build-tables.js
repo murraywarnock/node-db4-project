@@ -20,18 +20,18 @@ exports.up = async function(knex) {
             .unsigned()
             .notNullable()
             .references('recipe_id')
-            .inTable('recipies')
+            .inTable('recipes')
             .onDelete('RESTRICT')
             .onUpdate('CASCADE') // THIS NEVER HAPPENS
     })
     .createTable('step_ingredient', (table) => {
         table.increments('step_ingredient_id')
         table.string('amount', 234).notNullable()
-        table.integer('recipe_id')
+        table.integer('step_id')
             .unsigned()
             .notNullable()
-            .references('recipe_id')
-            .inTable('recipies')
+            .references('step_id')
+            .inTable('steps')
             .onDelete('RESTRICT')
             .onUpdate('CASCADE') // THIS NEVER HAPPENS
         table.integer('ingredient_id')
@@ -45,5 +45,9 @@ exports.up = async function(knex) {
 };
 
 exports.down = function(knex) {
-  
+    return knex.schema
+    .dropTableIfExists('step_ingredient')
+    .dropTableIfExists('steps')
+    .dropTableIfExists('ingredients')
+    .dropTableIfExists('recipes')
 };
