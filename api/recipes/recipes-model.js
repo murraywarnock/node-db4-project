@@ -26,6 +26,7 @@ async function getRecipeById(recipe_id) {
         .join('steps as s', 's.recipe_id', 'r.recipe_id')
         .leftJoin('step_ingredient as si', 'si.step_id', 's.step_id')
         .leftJoin('ingredients as i', 'si.ingredient_id', 'i.ingredient_id')
+        .orderBy('s.step_number')
         .select(
             'r.recipe_id',
             'r.recipe_title',
@@ -37,7 +38,32 @@ async function getRecipeById(recipe_id) {
             'i.ingredient_name',
             'si.amount',
             )
-    return recipeRows
+            
+        const recipeObj = {
+            recipe_id: recipeRows[0].recipe_id,
+            recipe_name: recipeRows[0].recipe_title,
+            created_at: recipeRows[0].created_date,
+            steps: []
+        }
+        recipeRows.forEach(row => {
+            if(row.step_id) {
+                recipeObj.steps.push({
+                    step_id: row.step_id,
+                    step_number: row.step_number,
+                    step_instructions: row.instructions,
+                    ingredients: []
+                })
+                // if(row.ingredient_id) {
+                //     recipeObj.steps.ingredients.push({
+                //         ingredient_id: row.ingredient_id
+                //     })
+                // }
+            }
+
+        }) 
+
+    return recipeObj;
+
 }
 
 module.exports = { getRecipeById };
