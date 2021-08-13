@@ -53,11 +53,13 @@ async function getRecipeById(recipe_id) {
                     step_instructions: row.instructions,
                     ingredients: []
                 })
-                // if(row.ingredient_id) {
-                //     recipeObj.steps.ingredients.push({
-                //         ingredient_id: row.ingredient_id
-                //     })
-                // }
+                if(row.ingredient_id) {
+                    // recipeObj.steps.ingredients.push({
+                    //     ingredient_id: row.ingredient_id,
+                    //     ingredient_name: row.ingredient_name,
+                    //     quantity: row.amount
+                    // })
+                }
             }
 
         }) 
