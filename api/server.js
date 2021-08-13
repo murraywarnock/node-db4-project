@@ -4,7 +4,7 @@ const recipesRouter = require("./recipes/recipes-router");
 const server = express();
 
 server.use(express.json());
-server.use("/api/recipes", recipesRouter)
+
 // server.get('/', (req, res, next) => {
 //   res.send(`
 //     <h1>Data Modeling - Module 4</h1>
@@ -23,5 +23,11 @@ server.use("/api/recipes", recipesRouter)
 //   res.status(err.status || 500).json({ message: `ERROR: ${err.message}` });
 //   next(); // There should be no next....
 // });  
+
+server.use("/api/recipes", recipesRouter)
+
+server.use('*', (req, res, next) => { //eslint-disable-line
+  res.json({ api: 'up' });
+})
 
 module.exports = server;

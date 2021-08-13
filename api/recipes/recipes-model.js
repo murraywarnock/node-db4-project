@@ -16,3 +16,9 @@
 // left join ingredients i
 //     on si.ingredient_id = i.ingredient_id
 // order by r.recipe_id, s.step_number
+
+function getRecipeById(recipeId) {
+    return Promise.resolve('awesome')
+}
+
+module.exports = { getRecipeById };
